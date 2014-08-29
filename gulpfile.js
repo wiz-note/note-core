@@ -7,6 +7,7 @@ var gulp            = require('gulp');
 var $               = require('gulp-load-plugins')();
 var runSequence     = require('run-sequence');
 
+var coffee          = require('gulp-coffee');
 var rimraf          = require('rimraf');
 var browserSync     = require('browser-sync');
 var reload          = browserSync.reload;
@@ -24,6 +25,24 @@ var sizeOf = function(stream, title){
   return stream
     .pipe($.size({title: title}));
 };
+
+// --------------------------------------------------------
+// Build CoffeeScript
+// --------------------------------------------------------
+
+(function(scope){
+
+  gulp.task('coffee', function () {
+    return compileCoffee();
+  });
+
+  var compileCoffee = function () {
+    return gulp.src('app/scripts/**/*.coffee')
+      .pipe(coffee({bare: false}))
+      .pipe(gulp.dest(tmpDir + '/scripts'))
+  }.bind(scope);
+
+})(this);
 
 // --------------------------------------------------------
 // Lint JavaScript
@@ -54,22 +73,22 @@ var sizeOf = function(stream, title){
 
 (function(scope){
 
-  gulp.task('scripts:dev', ['jshint:breaking'], function() {
+  gulp.task('scripts:dev', ['coffee', 'jshint:breaking'], function() {
     return sizeOf(scriptsBrowserify('dev'), 'scripts:dev');
   });
 
-  gulp.task('p-scripts:dev:reload', ['jshint'], function() {
+  gulp.task('p-scripts:dev:reload', ['coffee', 'jshint'], function() {
     return sizeOf(
       scriptsBrowserify('dev')
         .pipe(reload({stream: true, once: true}))
       , 'scripts:dev');
   });
 
-  gulp.task('p-scripts:pre:package', ['jshint:breaking'], function() {
+  gulp.task('p-scripts:pre:package', ['coffee', 'jshint:breaking'], function() {
     return sizeOf(scriptsBrowserify('prod'), 'scripts:pre:package');
   });
 
-  gulp.task('scripts:package', ['jshint:breaking'], function() {
+  gulp.task('scripts:package', ['coffee', 'jshint:breaking'], function() {
     return scope.htmlPackage(['p-scripts:package:now']);
   })
 
@@ -96,7 +115,7 @@ var sizeOf = function(stream, title){
   });
 
   var scriptsBrowserify = function(env){
-    var jsBundles = ['app/scripts/note-core.js'];
+    var jsBundles = [tmpDir + '/scripts/note-core.js'];
     glob('app/scripts/**/*-b.js', function(er, filesArray){
       for(var i=0;i<filesArray.length;i++){
         jsBundles.push(filesArray[i]);
@@ -416,7 +435,7 @@ var sizeOf = function(stream, title){
 
       gulp.watch(['app/**/*.html']                            , ['p-html:dev:reload']);
       gulp.watch(['app/styles/**/*.{css,scss,sass}']          , ['p-styles:dev:reload']);
-      gulp.watch(['app/scripts/**/*.js']                      , ['p-scripts:dev:reload']);
+      gulp.watch(['app/scripts/**/*.coffee']                  , ['p-scripts:dev:reload']);
       gulp.watch(['app/images/**/*.*']                        , ['p-images:dev:reload']);
       gulp.watch(['app/public/**/*.*']                        , ['p-public:dev:reload']);
       gulp.watch(['lib/.bower_components/**/*.{css,js,html}'] , ['p-lib:dev:reload']);

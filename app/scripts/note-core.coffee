@@ -3,14 +3,21 @@
 
 polymer = Polymer 'note-core',
 
-  notitle: '',
+  s: null
 
-  aProp: false,
+  strokeWidth: 2
+  strokeColor: '#000000'
+  fillColor: '#ffffff'
 
   ready: ->
-    console.log 'ok'
+    @s = new Snap @.$.canvas
 
-  task: (dummy) ->
-    return dummy
+    @drawLine 10, 20, 100, 200
+
+  drawLine: (x0, y0, x1, y1) ->
+    line = @s.line x0, y0, x1, y1
+    line.attr
+      stroke: @strokeColor
+      strokeWidth: @strokeWidth
 
 return polymer;

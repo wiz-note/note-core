@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "dependencies": {
     "platform": "Polymer/platform#~0.3.3",
-    "polymer": "Polymer/polymer#~0.3.3"
+    "polymer": "Polymer/polymer#~0.3.3",
+    "Snap.svg": "~0.3.0"
   },
   "devDependencies": {
-    "closure-compiler" : "http://dl.google.com/closure-compiler/compiler-latest.zip"
+    "closure-compiler": "http://dl.google.com/closure-compiler/compiler-latest.zip"
   }
 }

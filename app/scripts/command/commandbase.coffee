@@ -3,9 +3,11 @@
 class CommandBase
 
   @target: null
+  @gc: null
 
-  constructor: (target) ->
+  constructor: (target, gc) ->
     @target = target
+    @gc = gc
 
   execute: ->
 

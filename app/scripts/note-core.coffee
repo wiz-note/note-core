@@ -1,5 +1,6 @@
 'use strict'
 
+{CommandDrawLine} = require './command/drawline'
 {CommandDrawPath} = require './command/drawpath'
 
 polymer = Polymer 'note-core',
@@ -16,16 +17,11 @@ polymer = Polymer 'note-core',
   ready: ->
     @s = new Snap @.$.canvas
 
-    # @drawLine 10, 20, 100, 200
+    drawLine = new CommandDrawLine @s
+    drawLine.execute 10, 20, 100, 200
 
     drawPath = new CommandDrawPath @s
     drawPath.execute [10, 20, 100, 100, 200, 500]
-
-  drawLine: (x0, y0, x1, y1) ->
-    line = @s.line x0, y0, x1, y1
-    line.attr
-      stroke: @strokeColor
-      strokeWidth: @strokeWidth
 
 
 return polymer;

@@ -13,7 +13,7 @@ class CommandDrawPath extends CommandBase
     @path = path
 
   execute: (target, gc) ->
-    @drawPath target, gc
+    return @drawPath target, gc
 
   drawPath: (target, gc) ->
     path = JSON.parse JSON.stringify @path
@@ -30,6 +30,8 @@ class CommandDrawPath extends CommandBase
     if path.length >= 2
       @prevPoint = [x, y]
       @addPath path
+
+    return element
 
   addPath: (path) ->
     while path.length >= 2

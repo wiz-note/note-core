@@ -12,16 +12,21 @@ polymer = Polymer 'note-core',
 
   stack: null
 
+  elements: null
+
   ready: ->
     @s = new Snap @.$.canvas
     @gc = new GraphicsContext()
 
     @stack = new CommandStack()
 
+    @elements = []
+
     @test()
 
   addCommand: (command) ->
-    @stack.add @s, @gc, command
+    element = @stack.add @s, @gc, command
+    @elements.push element
 
   test: ->
     command = new CommandDrawLine 10, 20, 100, 200

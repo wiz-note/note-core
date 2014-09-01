@@ -10,7 +10,9 @@ class CommandStack
   add: (target, state, command) ->
     @commands.push command
 
-    command.execute target, state
+    element = command.execute target, state
+
+    return element
 
   remove: (command) ->
 

@@ -4,25 +4,34 @@
 
 class CommandDrawPath extends CommandBase
 
+  path: null
+
   pathNode: null
   prevPoint: null
 
-  execute: (path) ->
-    @drawPath path
+  constructor: (path) ->
+    @path = path
 
-  drawPath: (path, state) ->
+  execute: (target, gc) ->
+    return @drawPath target, gc
+
+  drawPath: (target, gc) ->
+    path = JSON.parse JSON.stringify @path
+
     return unless path.length >= 2
 
     [x, y] = path.splice 0, 2
 
-    element = @target.path "M#{x},#{y}"
-    element.attr @gc.state
+    @element = target.path "M#{x},#{y}"
+    @element.attr gc.state
 
-    @pathNode = element.node
+    @pathNode = @element.node
 
     if path.length >= 2
       @prevPoint = [x, y]
       @addPath path
+
+    return @element
 
   addPath: (path) ->
     while path.length >= 2

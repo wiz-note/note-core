@@ -4,12 +4,20 @@
 
 class CommandDrawLine extends CommandBase
 
-  execute: (x0, y0, x1, y1) ->
-    @drawLine x0, y0, x1, y1
+  vector: null
 
-  drawLine: (x0, y0, x1, y1) ->
-    line = @target.line x0, y0, x1, y1
-    line.attr @gc.state
+  constructor: (x0, y0, x1, y1) ->
+    @vector = [x0, y0, x1, y1]
 
+  execute: (target, gc) ->
+    return @drawLine target, gc
+
+  drawLine: (target, gc) ->
+    [x0, y0, x1, y1] = @vector
+
+    @element = target.line x0, y0, x1, y1
+    @element.attr gc.state
+
+    return @element
 
 exports.CommandDrawLine = CommandDrawLine

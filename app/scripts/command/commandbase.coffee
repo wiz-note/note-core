@@ -2,14 +2,11 @@
 
 class CommandBase
 
-  @target: null
-  @gc: null
+  element: null
 
-  constructor: (target, gc) ->
-    @target = target
-    @gc = gc
+  constructor: ->
 
-  execute: ->
+  execute: (target, gc) ->
 
 
 exports.CommandBase = CommandBase

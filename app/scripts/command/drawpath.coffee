@@ -22,16 +22,16 @@ class CommandDrawPath extends CommandBase
 
     [x, y] = path.splice 0, 2
 
-    element = target.path "M#{x},#{y}"
-    element.attr gc.state
+    @element = target.path "M#{x},#{y}"
+    @element.attr gc.state
 
-    @pathNode = element.node
+    @pathNode = @element.node
 
     if path.length >= 2
       @prevPoint = [x, y]
       @addPath path
 
-    return element
+    return @element
 
   addPath: (path) ->
     while path.length >= 2

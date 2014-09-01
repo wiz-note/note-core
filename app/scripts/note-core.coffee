@@ -20,12 +20,15 @@ polymer = Polymer 'note-core',
 
     @test()
 
+  addCommand: (command) ->
+    @stack.add @s, @gc, command
+
   test: ->
-    # drawLine = new CommandDrawLine @s, @gc
-    # drawLine.execute 10, 20, 100, 200
+    command = new CommandDrawLine 10, 20, 100, 200
+    @addCommand command
 
     command = new CommandDrawPath [10, 20, 100, 100, 200, 500]
-    @stack.add @s, @gc, command
+    @addCommand command
 
 
 return polymer;

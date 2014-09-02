@@ -12,7 +12,7 @@ class ToolFreehand extends ToolBase
   state: null
 
   stroke: null
-  prevPoint: null
+  point: null
 
   command: null
   element: null
@@ -25,15 +25,13 @@ class ToolFreehand extends ToolBase
   onMouseDown: (event) ->
     event.preventDefault()
 
-    [x, y] = @getPoint event
+    @point = @getPoint event
 
     # @stroke = []
     # @stroke.push x, y
 
-    @command = new CommandDrawPath [x, y]
+    @command = new CommandDrawPath @point
     @element = @core.addCommand @command
-
-    @prevPoint = [x, y]
 
     @state = @State.PRESS
 
@@ -42,13 +40,12 @@ class ToolFreehand extends ToolBase
 
     event.preventDefault()
 
-    [x, y] = @getPoint event
-    [prevX, prevY] = @prevPoint
+    point = @getPoint event
 
     # @stroke.push x, y
-    @command.addPath [prevX, prevY, x, y]
+    @command.addPath @point.concat point
 
-    @prevPoint = [x, y]
+    @point = point
 
   onMouseUp: (event) ->
     event.preventDefault()

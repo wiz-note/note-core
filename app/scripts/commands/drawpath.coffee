@@ -27,8 +27,8 @@ class CommandDrawPath extends CommandBase
 
     @pathNode = @element.node
 
+    @prevPoint = [x, y]
     if path.length >= 2
-      @prevPoint = [x, y]
       @addPath path
 
     return @element

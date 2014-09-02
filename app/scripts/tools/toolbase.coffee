@@ -3,13 +3,21 @@
 class ToolBase
 
   target: null
+  core: null
 
   listeners: null
 
-  constructor: (target) ->
+  offsetX: 0
+  offsetY: 0
+
+  constructor: (target, core) ->
     @target = target
+    @core = core
 
     @listeners = []
+
+    @offsetX = @target.offsetLeft
+    @offsetY = @target.offsetTop
 
   activate: ->
     @addListener @target, 'mousedown', @onMouseDown?.bind @
@@ -34,9 +42,9 @@ class ToolBase
 
   getPoint: (event) ->
     if event.touches?
-      return [event.touches[0].clientX, event.touches[0].clientY]
+      return [event.touches[0].clientX - @offsetX, event.touches[0].clientY - @offsetY]
     else
-      return [event.x, event.y]
+      return [event.x - @offsetX, event.y - @offsetY]
 
   onMouseDown: (event) ->
 

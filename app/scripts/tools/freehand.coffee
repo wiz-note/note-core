@@ -11,7 +11,6 @@ class ToolFreehand extends ToolBase
 
   state: null
 
-  stroke: null
   point: null
 
   command: null
@@ -27,9 +26,6 @@ class ToolFreehand extends ToolBase
 
     @point = @getPoint event
 
-    # @stroke = []
-    # @stroke.push x, y
-
     @command = new CommandDrawPath @point
     @element = @core.addCommand @command
 
@@ -42,7 +38,6 @@ class ToolFreehand extends ToolBase
 
     point = @getPoint event
 
-    # @stroke.push x, y
     @command.addPath @point.concat point
 
     @point = point

@@ -1,9 +1,12 @@
 'use strict'
 
 {GraphicsContext} = require './graphicscontext'
+
 {CommandStack}    = require './commands/commandstack'
 {CommandDrawLine} = require './commands/drawline'
 {CommandDrawPath} = require './commands/drawpath'
+
+{ToolFreehand}    = require './tools/freehand'
 
 polymer = Polymer 'note-core',
 
@@ -29,6 +32,10 @@ polymer = Polymer 'note-core',
     @elements.push element
 
   test: ->
+    target = @s.node
+    tool = new ToolFreehand target
+    tool.activate()
+
     command = new CommandDrawLine 10, 20, 100, 200
     @addCommand command
 

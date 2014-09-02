@@ -1,9 +1,9 @@
 'use strict'
 
 {GraphicsContext} = require './graphicscontext'
-{CommandStack}    = require './command/commandstack'
-{CommandDrawLine} = require './command/drawline'
-{CommandDrawPath} = require './command/drawpath'
+{CommandStack}    = require './commands/commandstack'
+{CommandDrawLine} = require './commands/drawline'
+{CommandDrawPath} = require './commands/drawpath'
 
 polymer = Polymer 'note-core',
 

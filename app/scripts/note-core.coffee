@@ -35,6 +35,10 @@ polymer = Polymer 'note-core',
     return element
 
   removeCommand: (command) ->
+    index = @elements.indexOf command.element
+    if index >= 0
+      @elements.splice index, 1
+
     @stack.remove command
 
   test: ->

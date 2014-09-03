@@ -26,9 +26,8 @@ class ToolRectangle extends ToolBase
     event.preventDefault()
 
     @point = @getPoint event
-
-    # @command = new CommandDrawRectangle @point
-    # @element = @core.addCommand @command
+    @command = new CommandDrawRectangle @point.concat @point
+    @element = @core.addCommand @command
 
     @state = @State.PRESS
 
@@ -37,23 +36,19 @@ class ToolRectangle extends ToolBase
 
     event.preventDefault()
 
-    # point = @getPoint event
-    #
-    # @command.addPath @point.concat point
-    #
-    # @point = point
+    point = @getPoint event
+    @command.moveRectangle @point.concat point
 
   onMouseUp: (event) ->
     event.preventDefault()
 
     point = @getPoint event
-    @command = new CommandDrawRectangle @point.concat point
-    @element = @core.addCommand @command
+    @command.moveRectangle @point.concat point
 
     @state = @State.RELEASE
 
   onMouseLeave: (event) ->
-    @onMouseMove event
+    @onMouseUp event
 
     @state = @State.RELEASE
 

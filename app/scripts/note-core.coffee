@@ -34,6 +34,9 @@ polymer = Polymer 'note-core',
 
     return element
 
+  removeCommand: (command) ->
+    @stack.remove command
+
   test: ->
     target = @s.node
     # tool = new ToolFreehand target, this
@@ -42,9 +45,11 @@ polymer = Polymer 'note-core',
 
     command = new CommandDrawLine 10, 20, 100, 200
     @addCommand command
+    @removeCommand command
 
     command = new CommandDrawPath [10, 20, 100, 100, 200, 500]
     @addCommand command
+    @removeCommand command
 
 
 return polymer;

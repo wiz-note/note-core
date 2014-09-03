@@ -15,6 +15,7 @@ class CommandStack
     return element
 
   remove: (command) ->
+    command.undo()
 
 
 exports.CommandStack = CommandStack

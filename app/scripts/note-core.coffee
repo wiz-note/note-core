@@ -7,6 +7,7 @@
 {CommandDrawPath} = require './commands/drawpath'
 
 {ToolFreehand}    = require './tools/freehand'
+{ToolRectangle}    = require './tools/rectangle'
 
 polymer = Polymer 'note-core',
 
@@ -35,7 +36,8 @@ polymer = Polymer 'note-core',
 
   test: ->
     target = @s.node
-    tool = new ToolFreehand target, this
+    # tool = new ToolFreehand target, this
+    tool = new ToolRectangle target, this
     tool.activate()
 
     command = new CommandDrawLine 10, 20, 100, 200

@@ -20,13 +20,15 @@ class ToolBase
     @offsetY = @target.offsetTop
 
   activate: ->
-    @addListener @target, 'mousedown', @onMouseDown?.bind @
-    @addListener @target, 'mousemove', @onMouseMove?.bind @
-    @addListener @target, 'mouseup',   @onMouseUp?.bind @
+    @addListener @target, 'mousedown',  @onMouseDown?.bind @
+    @addListener @target, 'mousemove',  @onMouseMove?.bind @
+    @addListener @target, 'mouseup',    @onMouseUp?.bind @
+    @addListener @target, 'mouseleave', @onMouseLeave?.bind @
 
     @addListener @target, 'touchstart', @onMouseDown?.bind @
     @addListener @target, 'touchmove',  @onMouseMove?.bind @
     @addListener @target, 'touchend',   @onMouseUp?.bind @
+    @addListener @target, 'touchleave', @onMouseLeave?.bind @
 
   deactivate: ->
     @removeAllListeners()
@@ -51,6 +53,8 @@ class ToolBase
   onMouseMove: (event) ->
 
   onMouseUp: (event) ->
+
+  onMouseLeave: (event) ->
 
 
 exports.ToolBase = ToolBase

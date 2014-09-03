@@ -47,5 +47,10 @@ class ToolFreehand extends ToolBase
 
     @state = @State.RELEASE
 
+  onMouseLeave: (event) ->
+    @onMouseMove event
+
+    @state = @State.RELEASE
+
 
 exports.ToolFreehand = ToolFreehand

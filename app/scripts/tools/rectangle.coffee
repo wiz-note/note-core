@@ -48,7 +48,8 @@ class ToolRectangle extends ToolBase
     @state = @State.RELEASE
 
   onMouseLeave: (event) ->
-    @onMouseUp event
+    if @state is @State.PRESS
+      @onMouseUp event
 
     @state = @State.RELEASE
 

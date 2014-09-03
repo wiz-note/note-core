@@ -7,6 +7,7 @@
 {CommandDrawPath} = require './commands/drawpath'
 
 {ToolFreehand}    = require './tools/freehand'
+{ToolRectangle}    = require './tools/rectangle'
 
 polymer = Polymer 'note-core',
 
@@ -33,16 +34,26 @@ polymer = Polymer 'note-core',
 
     return element
 
+  removeCommand: (command) ->
+    index = @elements.indexOf command.element
+    if index >= 0
+      @elements.splice index, 1
+
+    @stack.remove command
+
   test: ->
     target = @s.node
-    tool = new ToolFreehand target, this
+    # tool = new ToolFreehand target, this
+    tool = new ToolRectangle target, this
     tool.activate()
 
     command = new CommandDrawLine 10, 20, 100, 200
     @addCommand command
+    @removeCommand command
 
     command = new CommandDrawPath [10, 20, 100, 100, 200, 500]
     @addCommand command
+    @removeCommand command
 
 
 return polymer;

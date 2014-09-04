@@ -6,12 +6,14 @@
 
 {ToolFreehand}    = require './tools/freehand'
 {ToolRectangle}    = require './tools/rectangle'
+{ToolUndo}    = require './tools/undo'
 
 polymer = Polymer 'note-core',
 
   TOOL_CLASSES:
     'freehand': ToolFreehand
     'rectangle': ToolRectangle
+    'undo': ToolUndo
 
   tools: null
   currentTool: null
@@ -44,10 +46,12 @@ polymer = Polymer 'note-core',
 
   activateTool: (id) ->
     if @tools[id]?
-      @currentTool?.deactivate()
+      oldTool = @currentTool
 
       @currentTool = @tools[id]
-      @currentTool.activate()
+      isActivated = @currentTool.activate()
+      if isActivated
+        oldTool?.deactivate()
 
   addCommand: (command) ->
     element = @stack.add @s, @gc, command
@@ -61,6 +65,9 @@ polymer = Polymer 'note-core',
       @elements.splice index, 1
 
     @stack.remove command
+
+  undo: ->
+    @stack.undo()
 
 
 return polymer;

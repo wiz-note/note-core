@@ -30,6 +30,8 @@ class ToolBase
     @addListener @target, 'touchend',   @onMouseUp.bind @
     @addListener @target, 'touchleave', @onMouseLeave.bind @
 
+    return true
+
   deactivate: ->
     @removeAllListeners()
 

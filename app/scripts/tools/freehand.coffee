@@ -38,7 +38,7 @@ class ToolFreehand extends ToolBase
 
     point = @getPoint event
 
-    @command.addPath @point.concat point
+    @command.addPath @point.concat(point), true
 
     @point = point
 

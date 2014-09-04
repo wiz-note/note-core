@@ -3,13 +3,18 @@
 {GraphicsContext} = require './graphicscontext'
 
 {CommandStack}    = require './commands/commandstack'
-{CommandDrawLine} = require './commands/drawline'
-{CommandDrawPath} = require './commands/drawpath'
 
 {ToolFreehand}    = require './tools/freehand'
 {ToolRectangle}    = require './tools/rectangle'
 
 polymer = Polymer 'note-core',
+
+  TOOL_CLASSES:
+    'freehand': ToolFreehand
+    'rectangle': ToolRectangle
+
+  tools: null
+  currentTool: null
 
   s: null
   gc: null
@@ -26,7 +31,23 @@ polymer = Polymer 'note-core',
 
     @elements = []
 
-    @test()
+    @tools = {}
+    for tool of @TOOL_CLASSES
+      @tools[tool] = new @TOOL_CLASSES[tool] @s.node, this
+
+    @.$.tool_buttons.addEventListener 'click', @onToolButtonClick.bind(@)
+
+    @activateTool 'freehand'
+
+  onToolButtonClick: (event) ->
+    @activateTool event.target.id
+
+  activateTool: (id) ->
+    if @tools[id]?
+      @currentTool?.deactivate()
+
+      @currentTool = @tools[id]
+      @currentTool.activate()
 
   addCommand: (command) ->
     element = @stack.add @s, @gc, command
@@ -40,20 +61,6 @@ polymer = Polymer 'note-core',
       @elements.splice index, 1
 
     @stack.remove command
-
-  test: ->
-    target = @s.node
-    # tool = new ToolFreehand target, this
-    tool = new ToolRectangle target, this
-    tool.activate()
-
-    command = new CommandDrawLine 10, 20, 100, 200
-    @addCommand command
-    @removeCommand command
-
-    command = new CommandDrawPath [10, 20, 100, 100, 200, 500]
-    @addCommand command
-    @removeCommand command
 
 
 return polymer;

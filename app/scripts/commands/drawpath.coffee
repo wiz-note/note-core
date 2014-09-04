@@ -33,7 +33,10 @@ class CommandDrawPath extends CommandBase
 
     return @element
 
-  addPath: (path) ->
+  addPath: (path, flag) ->
+    if flag?
+      @path = @path.concat path
+
     while path.length >= 2
       [x, y] = path.splice 0, 2
 

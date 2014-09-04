@@ -5,8 +5,9 @@
 {CommandStack}    = require './commands/commandstack'
 
 {ToolFreehand}    = require './tools/freehand'
-{ToolRectangle}    = require './tools/rectangle'
-{ToolUndo}    = require './tools/undo'
+{ToolRectangle}   = require './tools/rectangle'
+{ToolUndo}        = require './tools/undo'
+{ToolRedo}        = require './tools/redo'
 
 polymer = Polymer 'note-core',
 
@@ -14,6 +15,7 @@ polymer = Polymer 'note-core',
     'freehand': ToolFreehand
     'rectangle': ToolRectangle
     'undo': ToolUndo
+    'redo': ToolRedo
 
   tools: null
   currentTool: null
@@ -68,6 +70,9 @@ polymer = Polymer 'note-core',
 
   undo: ->
     @stack.undo()
+
+  redo: ->
+    @stack.redo @s, @gc
 
 
 return polymer;

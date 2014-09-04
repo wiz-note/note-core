@@ -20,9 +20,18 @@ class CommandStack
     command.undo()
 
   undo: ->
-    @remove @commands[@index]
-    if @index > 0
+    if @index >= 0
+      command = @commands[@index]
+      command.undo()
+
       @index--
+
+  redo: (target, state) ->
+    if @index < @commands.length - 1
+      @index++
+
+      command = @commands[@index]
+      command.execute target, state
 
 
 exports.CommandStack = CommandStack

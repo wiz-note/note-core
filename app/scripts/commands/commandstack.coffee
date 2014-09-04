@@ -9,6 +9,9 @@ class CommandStack
     @commands = []
 
   add: (target, state, command) ->
+    if @index isnt @commands.length - 1
+      @commands.splice @index + 1, @commands.length - @index - 1
+
     @commands.push command
     @index = @commands.length - 1
 

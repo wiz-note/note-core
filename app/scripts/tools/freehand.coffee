@@ -11,8 +11,6 @@ class ToolFreehand extends ToolBase
 
   state: null
 
-  point: null
-
   command: null
   element: null
 
@@ -24,9 +22,8 @@ class ToolFreehand extends ToolBase
   onMouseDown: (event) ->
     event.preventDefault()
 
-    @point = @getPoint event
-
-    @command = new CommandDrawPath @point
+    point = @getPoint event
+    @command = new CommandDrawPath point
     @element = @core.addCommand @command
 
     @state = @State.PRESS
@@ -37,10 +34,7 @@ class ToolFreehand extends ToolBase
     event.preventDefault()
 
     point = @getPoint event
-
-    @command.addPath @point.concat(point), true
-
-    @point = point
+    @command.addPath point, true
 
   onMouseUp: (event) ->
     event.preventDefault()

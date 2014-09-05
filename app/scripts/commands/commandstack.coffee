@@ -6,7 +6,7 @@ class CommandStack
   index: null
 
   constructor: ->
-    @commands = []
+    @clear()
 
   add: (target, state, command) ->
     if @index isnt @commands.length - 1
@@ -30,11 +30,18 @@ class CommandStack
       @index--
 
   redo: (target, state) ->
-    if @index < @commands.length - 1
-      @index++
+    return false unless @index < @commands.length - 1
 
-      command = @commands[@index]
-      command.execute target, state
+    @index++
+
+    command = @commands[@index]
+    element = command.execute target, state
+
+    return element
+
+  clear: ->
+    @commands = []
+    @index = -1
 
 
 exports.CommandStack = CommandStack

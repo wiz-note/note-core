@@ -8,6 +8,7 @@
 {ToolRectangle}   = require './tools/rectangle'
 {ToolUndo}        = require './tools/undo'
 {ToolRedo}        = require './tools/redo'
+{ToolClear}       = require './tools/clear'
 
 polymer = Polymer 'note-core',
 
@@ -16,6 +17,7 @@ polymer = Polymer 'note-core',
     'rectangle': ToolRectangle
     'undo': ToolUndo
     'redo': ToolRedo
+    'clear': ToolClear
 
   tools: null
   currentTool: null
@@ -73,6 +75,13 @@ polymer = Polymer 'note-core',
 
   redo: ->
     @stack.redo @s, @gc
+
+  clear: ->
+    @stack.clear()
+
+    for element in @elements
+      element.remove()
+      element = null
 
 
 return polymer;

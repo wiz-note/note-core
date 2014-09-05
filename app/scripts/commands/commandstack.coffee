@@ -36,5 +36,8 @@ class CommandStack
       command = @commands[@index]
       command.execute target, state
 
+  clear: ->
+    @command = []
+
 
 exports.CommandStack = CommandStack

@@ -1,5 +1,6 @@
 'use strict'
 
+{ToolPick}        = require './pick'
 {ToolFreehand}    = require './freehand'
 {ToolRectangle}   = require './rectangle'
 {ToolPenColor}    = require './pencolor'
@@ -11,6 +12,7 @@
 class ToolFactory
 
   TOOL_CLASSES:
+    'pick': ToolPick
     'freehand': ToolFreehand
     'rectangle': ToolRectangle
     'pencolor': ToolPenColor

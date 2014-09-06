@@ -2,8 +2,8 @@
 
 {GraphicsContext} = require './graphicscontext'
 
-{CommandStack}    = require './commands/commandstack'
-{ToolFactory}    = require './tools/toolfactory'
+{CommandStack} = require './commands/commandstack'
+{ToolFactory} = require './tools/toolfactory'
 
 polymer = Polymer 'note-core',
 
@@ -13,8 +13,8 @@ polymer = Polymer 'note-core',
   s: null
   gc: null
 
-  factory: null
   stack: null
+  factory: null
 
   elements: null
 
@@ -27,22 +27,8 @@ polymer = Polymer 'note-core',
     @elements = []
 
     @tools = new ToolFactory this, @s, @gc
-    @.$.tool_buttons.addEventListener 'click', @onToolButtonClick.bind(@)
-
-    @activateTool 'freehand'
-
-  onToolButtonClick: (event) ->
-    @activateTool event.target.id
-
-  activateTool: (id) ->
-    tool = @tools.get id
-    if tool?
-      oldTool = @currentTool
-
-      @currentTool = tool
-      isActivated = @currentTool.activate()
-      if isActivated
-        oldTool?.deactivate()
+    @tools.bind @.$.tool_buttons
+    @tools.activate 'freehand'
 
   addCommand: (command) ->
     element = @stack.add @s, @gc, command

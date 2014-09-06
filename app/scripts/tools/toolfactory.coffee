@@ -20,14 +20,26 @@ class ToolFactory
     'clear': ToolClear
 
   tools: null
+  currentTool: null
 
-  constructor: (core, target, gc)->
+  constructor: (core, target, gc) ->
     @tools = {}
     for tool of @TOOL_CLASSES
       @tools[tool] = new @TOOL_CLASSES[tool] target.node, core, gc
 
-  get: (id) ->
-    return @tools[id]
+  bind: (element) ->
+    element.addEventListener 'click', =>
+      @activate event.target.id
+
+  activate: (id) ->
+    tool = @tools[id]
+    if tool?
+      oldTool = @currentTool
+
+      @currentTool = tool
+      isActivated = @currentTool.activate()
+      if isActivated
+        oldTool?.deactivate()
 
 
 exports.ToolFactory = ToolFactory

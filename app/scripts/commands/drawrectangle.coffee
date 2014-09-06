@@ -5,9 +5,13 @@
 class CommandDrawRectangle extends CommandBase
 
   path: null
+  gc: null
 
-  constructor: (path) ->
+  constructor: (path, gc) ->
     @path = path
+
+    if gc?
+      @gc = gc
 
   execute: (target, gc) ->
     return @drawRectangle target, gc
@@ -18,7 +22,7 @@ class CommandDrawRectangle extends CommandBase
     [y, h] = if y0 < y1 then [y0, y1 - y0] else [y1, y0 - y1]
 
     @element = target.rect x, y, w, h
-    @element.attr gc.state
+    @element.attr @gc || gc.state
 
     return @element
 

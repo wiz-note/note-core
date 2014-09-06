@@ -2,22 +2,10 @@
 
 {GraphicsContext} = require './graphicscontext'
 
-{CommandStack}    = require './commands/commandstack'
-
-{ToolFreehand}    = require './tools/freehand'
-{ToolRectangle}   = require './tools/rectangle'
-{ToolUndo}        = require './tools/undo'
-{ToolRedo}        = require './tools/redo'
-{ToolClear}       = require './tools/clear'
+{CommandStack} = require './commands/commandstack'
+{ToolFactory} = require './tools/toolfactory'
 
 polymer = Polymer 'note-core',
-
-  TOOL_CLASSES:
-    'freehand': ToolFreehand
-    'rectangle': ToolRectangle
-    'undo': ToolUndo
-    'redo': ToolRedo
-    'clear': ToolClear
 
   tools: null
   currentTool: null
@@ -26,6 +14,7 @@ polymer = Polymer 'note-core',
   gc: null
 
   stack: null
+  factory: null
 
   elements: null
 
@@ -37,25 +26,9 @@ polymer = Polymer 'note-core',
 
     @elements = []
 
-    @tools = {}
-    for tool of @TOOL_CLASSES
-      @tools[tool] = new @TOOL_CLASSES[tool] @s.node, this
-
-    @.$.tool_buttons.addEventListener 'click', @onToolButtonClick.bind(@)
-
-    @activateTool 'freehand'
-
-  onToolButtonClick: (event) ->
-    @activateTool event.target.id
-
-  activateTool: (id) ->
-    if @tools[id]?
-      oldTool = @currentTool
-
-      @currentTool = @tools[id]
-      isActivated = @currentTool.activate()
-      if isActivated
-        oldTool?.deactivate()
+    @tools = new ToolFactory this, @s, @gc
+    @tools.bind @.$.tool_buttons
+    @tools.activate 'freehand'
 
   addCommand: (command) ->
     element = @stack.add @s, @gc, command

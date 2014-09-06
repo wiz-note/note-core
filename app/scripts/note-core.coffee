@@ -6,6 +6,7 @@
 
 {ToolFreehand}    = require './tools/freehand'
 {ToolRectangle}   = require './tools/rectangle'
+{ToolPenColor}    = require './tools/pencolor'
 {ToolUndo}        = require './tools/undo'
 {ToolRedo}        = require './tools/redo'
 {ToolClear}       = require './tools/clear'
@@ -15,6 +16,7 @@ polymer = Polymer 'note-core',
   TOOL_CLASSES:
     'freehand': ToolFreehand
     'rectangle': ToolRectangle
+    'pencolor': ToolPenColor
     'undo': ToolUndo
     'redo': ToolRedo
     'clear': ToolClear
@@ -39,7 +41,7 @@ polymer = Polymer 'note-core',
 
     @tools = {}
     for tool of @TOOL_CLASSES
-      @tools[tool] = new @TOOL_CLASSES[tool] @s.node, this
+      @tools[tool] = new @TOOL_CLASSES[tool] @s.node, this, @gc
 
     @.$.tool_buttons.addEventListener 'click', @onToolButtonClick.bind(@)
 

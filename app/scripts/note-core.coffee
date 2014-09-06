@@ -3,23 +3,9 @@
 {GraphicsContext} = require './graphicscontext'
 
 {CommandStack}    = require './commands/commandstack'
-
-{ToolFreehand}    = require './tools/freehand'
-{ToolRectangle}   = require './tools/rectangle'
-{ToolPenColor}    = require './tools/pencolor'
-{ToolUndo}        = require './tools/undo'
-{ToolRedo}        = require './tools/redo'
-{ToolClear}       = require './tools/clear'
+{ToolFactory}    = require './tools/toolfactory'
 
 polymer = Polymer 'note-core',
-
-  TOOL_CLASSES:
-    'freehand': ToolFreehand
-    'rectangle': ToolRectangle
-    'pencolor': ToolPenColor
-    'undo': ToolUndo
-    'redo': ToolRedo
-    'clear': ToolClear
 
   tools: null
   currentTool: null
@@ -27,6 +13,7 @@ polymer = Polymer 'note-core',
   s: null
   gc: null
 
+  factory: null
   stack: null
 
   elements: null
@@ -39,10 +26,7 @@ polymer = Polymer 'note-core',
 
     @elements = []
 
-    @tools = {}
-    for tool of @TOOL_CLASSES
-      @tools[tool] = new @TOOL_CLASSES[tool] @s.node, this, @gc
-
+    @tools = new ToolFactory this, @s, @gc
     @.$.tool_buttons.addEventListener 'click', @onToolButtonClick.bind(@)
 
     @activateTool 'freehand'
@@ -51,10 +35,11 @@ polymer = Polymer 'note-core',
     @activateTool event.target.id
 
   activateTool: (id) ->
-    if @tools[id]?
+    tool = @tools.get id
+    if tool?
       oldTool = @currentTool
 
-      @currentTool = @tools[id]
+      @currentTool = tool
       isActivated = @currentTool.activate()
       if isActivated
         oldTool?.deactivate()

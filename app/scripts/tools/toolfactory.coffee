@@ -35,13 +35,16 @@ class ToolFactory
 
   activate: (id) ->
     tool = @tools[id]
-    if tool?
-      oldTool = @currentTool
 
-      @currentTool = tool
-      isActivated = @currentTool.activate()
-      if isActivated
-        oldTool?.deactivate()
+    return unless tool?
+    return if @currentTool is tool
+
+    oldTool = @currentTool
+
+    @currentTool = tool
+    isActivated = @currentTool.activate()
+    if isActivated
+      oldTool?.deactivate()
 
 
 exports.ToolFactory = ToolFactory

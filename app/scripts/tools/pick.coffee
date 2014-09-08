@@ -10,9 +10,10 @@ class ToolPick extends ToolBase
     PRESS: 1
 
   GC:
-    strokeWidth: 1
-    stroke: '#555555'
-    fill: 'none'
+    state:
+      strokeWidth: 1
+      stroke: '#555555'
+      fill: 'none'
 
   state: null
 
@@ -30,8 +31,8 @@ class ToolPick extends ToolBase
     event.preventDefault()
 
     @point = @getPoint event
-    @command = new CommandDrawRectangle @point.concat(@point), @GC
-    @element = @core.addCommand @command
+    @command = new CommandDrawRectangle @point.concat(@point)
+    @element = @core.addCommand @command, @GC
 
     @state = @State.PRESS
 

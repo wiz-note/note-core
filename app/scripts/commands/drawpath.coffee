@@ -13,14 +13,11 @@ class CommandDrawPath extends CommandBase
     @path = path
 
   execute: (target, gc) ->
-    return @drawPath target, gc
+    super target, gc
+
+    return @drawPath target, @gc
 
   drawPath: (target, gc) ->
-    if gc?
-      @gc = {
-        state: JSON.parse JSON.stringify gc.state
-      }
-
     path = JSON.parse JSON.stringify @path
 
     return unless path.length >= 2

@@ -3,6 +3,7 @@
 class CommandBase
 
   element: null
+  gc: null
 
   constructor: ->
 

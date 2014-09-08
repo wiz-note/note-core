@@ -47,7 +47,7 @@ polymer = Polymer 'note-core',
     @stack.undo()
 
   redo: ->
-    element = @stack.redo @s, @gc
+    element = @stack.redo @s
     if element
       @elements.push element
 

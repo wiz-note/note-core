@@ -29,13 +29,13 @@ class CommandStack
 
       @index--
 
-  redo: (target, state) ->
+  redo: (target) ->
     return false unless @index < @commands.length - 1
 
     @index++
 
     command = @commands[@index]
-    element = command.execute target, state
+    element = command.execute target
 
     return element
 

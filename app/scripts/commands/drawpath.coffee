@@ -16,6 +16,11 @@ class CommandDrawPath extends CommandBase
     return @drawPath target, gc
 
   drawPath: (target, gc) ->
+    if gc?
+      @gc = {
+        state: JSON.parse JSON.stringify gc.state
+      }
+
     path = JSON.parse JSON.stringify @path
 
     return unless path.length >= 2
@@ -23,7 +28,7 @@ class CommandDrawPath extends CommandBase
     [x, y] = path.splice 0, 2
 
     @element = target.path "M#{x},#{y}"
-    @element.attr gc.state
+    @element.attr @gc.state
 
     @pathNode = @element.node
 

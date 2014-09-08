@@ -7,6 +7,8 @@ class ToolPenWidth extends ToolBase
   WIDTH_LIST: [1, 2, 4, 8]
   DEFAULT_WIDTH: 2
 
+  focusable: false
+
   gc: null
 
   constructor: (target, core, gc) ->
@@ -23,9 +25,6 @@ class ToolPenWidth extends ToolBase
     dropdown.addEventListener 'change', (event) =>
       width = event.target.value
       @gc.state.strokeWidth = width
-
-  activate: ->
-    return false
 
 
 exports.ToolPenWidth = ToolPenWidth

@@ -38,10 +38,14 @@ class ToolFactory
 
     return unless tool?
 
-    isActivated = tool.activate()
-    if isActivated
+    if tool.focusable
+      return if @currentTool is tool
+
       @currentTool?.deactivate()
-    @currentTool = tool
+
+      @currentTool = tool
+
+    tool.activate()
 
 
 exports.ToolFactory = ToolFactory

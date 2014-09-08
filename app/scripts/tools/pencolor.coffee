@@ -14,6 +14,8 @@ class ToolPenColor extends ToolBase
   ]
   DEFAULT_COLOR: 'black'
 
+  focusable: false
+
   gc: null
 
   constructor: (target, core, gc) ->
@@ -31,9 +33,6 @@ class ToolPenColor extends ToolBase
     dropdown.addEventListener 'change', (event) =>
       color = event.target.value
       @gc.state.stroke = color
-
-  activate: ->
-    return false
 
 
 exports.ToolPenColor = ToolPenColor

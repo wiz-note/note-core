@@ -4,10 +4,10 @@
 
 class ToolRedo extends ToolBase
 
+  focusable: false
+
   activate: ->
     @core.redo()
-
-    return false
 
 
 exports.ToolRedo = ToolRedo

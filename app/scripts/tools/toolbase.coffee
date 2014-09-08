@@ -2,6 +2,8 @@
 
 class ToolBase
 
+  focusable: true
+
   target: null
   core: null
 
@@ -29,8 +31,6 @@ class ToolBase
     @addListener @target, 'touchmove',  @onMouseMove.bind @
     @addListener @target, 'touchend',   @onMouseUp.bind @
     @addListener @target, 'touchleave', @onMouseLeave.bind @
-
-    return true
 
   deactivate: ->
     @removeAllListeners()

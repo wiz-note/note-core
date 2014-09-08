@@ -22,6 +22,8 @@ class ToolBase
     @offsetY = @target.offsetTop
 
   activate: ->
+    return unless @focusable
+
     @addListener @target, 'mousedown',  @onMouseDown.bind @
     @addListener @target, 'mousemove',  @onMouseMove.bind @
     @addListener @target, 'mouseup',    @onMouseUp.bind @
@@ -33,6 +35,8 @@ class ToolBase
     @addListener @target, 'touchleave', @onMouseLeave.bind @
 
   deactivate: ->
+    return unless @focusable
+
     @removeAllListeners()
 
   addListener: (target, event, listener) ->

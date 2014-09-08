@@ -9,4 +9,5 @@ class ToolUndo extends ToolBase
 
     return false
 
+
 exports.ToolUndo = ToolUndo

@@ -4,9 +4,10 @@
 
 class ToolUndo extends ToolBase
 
+  focusable: false
+
   activate: ->
     @core.undo()
 
-    return false
 
 exports.ToolUndo = ToolUndo

@@ -30,8 +30,8 @@ polymer = Polymer 'note-core',
     @tools.bind @.$.tool_buttons
     @tools.activate 'freehand'
 
-  addCommand: (command) ->
-    element = @stack.add @s, @gc, command
+  addCommand: (command, gc) ->
+    element = @stack.add @s, gc || @gc, command
     @elements.push element
 
     return element
@@ -47,7 +47,7 @@ polymer = Polymer 'note-core',
     @stack.undo()
 
   redo: ->
-    element = @stack.redo @s, @gc
+    element = @stack.redo @s
     if element
       @elements.push element
 

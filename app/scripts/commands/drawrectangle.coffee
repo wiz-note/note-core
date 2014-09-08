@@ -14,7 +14,9 @@ class CommandDrawRectangle extends CommandBase
       @gc = gc
 
   execute: (target, gc) ->
-    return @drawRectangle target, gc
+    super target, gc
+
+    return @drawRectangle target, @gc
 
   drawRectangle: (target, gc) ->
     [x0, y0, x1, y1] = @path
@@ -22,7 +24,7 @@ class CommandDrawRectangle extends CommandBase
     [y, h] = if y0 < y1 then [y0, y1 - y0] else [y1, y0 - y1]
 
     @element = target.rect x, y, w, h
-    @element.attr @gc || gc.state
+    @element.attr gc.state
 
     return @element
 

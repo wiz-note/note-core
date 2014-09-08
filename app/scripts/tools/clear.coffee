@@ -4,10 +4,10 @@
 
 class ToolClear extends ToolBase
 
+  focusable: false
+
   activate: ->
     @core.clear()
-
-    return false
 
 
 exports.ToolClear = ToolClear

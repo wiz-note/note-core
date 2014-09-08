@@ -13,7 +13,9 @@ class CommandDrawPath extends CommandBase
     @path = path
 
   execute: (target, gc) ->
-    return @drawPath target, gc
+    super target, gc
+
+    return @drawPath target, @gc
 
   drawPath: (target, gc) ->
     path = JSON.parse JSON.stringify @path
@@ -23,7 +25,7 @@ class CommandDrawPath extends CommandBase
     [x, y] = path.splice 0, 2
 
     @element = target.path "M#{x},#{y}"
-    @element.attr gc.state
+    @element.attr @gc.state
 
     @pathNode = @element.node
 
